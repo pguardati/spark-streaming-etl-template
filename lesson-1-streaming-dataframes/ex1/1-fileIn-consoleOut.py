@@ -2,7 +2,7 @@
 docker exec -it \
 nd029-c2-apache-spark-and-spark-streaming-starter-master_spark_1 \
 /opt/bitnami/spark/bin/spark-submit \
-/home/workspace/lesson-1-streaming-dataframes/ex1/1-hellospark.py
+/home/workspace/lesson-1-streaming-dataframes/ex1/1-fileIn-consoleOut.py
 """
 
 import os

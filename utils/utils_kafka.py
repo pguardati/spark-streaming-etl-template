@@ -116,7 +116,8 @@ def check_produce_consume(
 def produce_consume_sync(
         topic_name,
         broker_url,
-        delete_topic_after_consumption=False
+        delete_topic_after_consumption=False,
+        multiple_field=False
 ):
     """produce and consume kafka messages in an infinite loop"""
     try:
@@ -133,11 +134,16 @@ def produce_consume_sync(
 
         i = 0
         while True:
+            # define the structure of a message
+            message_value = {"value": f"mockup {i}"}
+            if multiple_field:
+                message_value = {"value1": f"mockup {i}",
+                                 "value2": f"mockup {-i}"}
             # produce
             producer.produce(
                 topic_name,
                 key=json.dumps({"timestamp": int(time.time())}),
-                value=json.dumps({"value": f"mockup {i}"})
+                value=json.dumps(message_value)
             )
             producer.flush()
             # consume
@@ -152,3 +158,30 @@ def produce_consume_sync(
         consumer.close()
         if delete_topic_after_consumption:
             delete_public_topic(broker_url)
+
+
+def consume_all(topic_output, broker_url):
+    consumer = Consumer({
+        "bootstrap.servers": broker_url,
+        "group.id": "0",
+        "auto.offset.reset": "earliest"
+    })
+    consumer.subscribe([topic_output])
+    # print every available message
+    mess = consumer.poll(timeout=10)
+    i = 0
+    while mess or i < 10:
+        print(mess.key(), mess.value())
+        mess = consumer.poll(timeout=1)
+        i += 1
+        print(f"printed {i} streaming messages")
+    consumer.close()
+
+
+def sample_stream(spark, df, timeout=10):
+    query = df.writeStream.outputMode("append") \
+        .queryName("tmp").format("memory") \
+        .start()
+    query.awaitTermination(timeout)
+    query.stop()
+    return spark.sql("select * from tmp").toPandas()

@@ -1,0 +1,48 @@
+{
+  "RapidStepTest": {
+    "startTime": 1613295418650,
+    "stopTime": 1613295485650,
+    "testTime": 67000,
+    "totalSteps": 30,
+    "customer": {
+      "customerName": "Jacob Jefferson",
+      "email": "Jacob.Jefferson@test.com",
+      "phone": "8015551212",
+      "birthDay": "1937-01-01"
+    }
+  },
+  "LoginToken": {
+    "expires": true,
+    "expiration": "2021-02-14T10:35:28.945Z",
+    "user": "pietroguardati@gmail.com",
+    "uuid": "c54270ed-8232-4fca-9963-2e472a1b6975"
+  },
+  "Customer": {
+    "customerName": "Jacob Jefferson",
+    "email": "Jacob.Jefferson@test.com",
+    "phone": "8015551212",
+    "birthDay": "1937-01-01"
+  },
+  "User": {
+    "userName": "pietroguardati@gmail.com",
+    "password": "1RuIiXMfs5qBjbCr1kSwFDLx2/iCJ9eBrWevGzPBrxmN9Du9QpOJlHdeyHlZz6lp",
+    "email": "pietroguardati@gmail.com",
+    "accountType": "Personal",
+    "locked": false
+  },
+  "TargetOutput": {
+    "customer": "Jason.Mitra@test.com",
+    "score": 7.0,
+    "riskDate": "2020-09-14T07:54:06.417Z"
+  },
+  "RedisToKafkaMessage": {
+    "key": "RapidStepTest",
+    "existType": "NONE",
+    "ch": false,
+    "incr": false,
+    "zSetEntries": null,
+    "zsetEntries": null
+  }
+}
+
+
