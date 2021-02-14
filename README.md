@@ -1,27 +1,40 @@
-#  Using Docker for your Exercises
-You will need to use Docker to run the exercises on your own computer. You can find Docker for your operating system here: https://docs.docker.com/get-docker/
-It is recommended that you configure Docker to allow it to use up to 2 cores and 6 GB of your host memory for use by the course workspace. If you are running other processes using Docker simultaneously with the workspace, you should take that into account also.
+# spark-streaming-etl-template
+Template of a spark streaming script.
+The script:
+- Fetch data from 2 kafka topic
+- Transform them 
+- Store the result in an additional Kafka topic   
 
-The docker-compose file at the root of the repository creates 9 separate containers:
-- Redis
-- Zookeeper (for Kafka)
-- Kafka
-- Banking Simulation
-- Trucking Simulation
-- STEDI (Application used in Final Project)
-- Kafka Connect with Redis Source Connector
-- Spark Master
-- Spark Worker
+The template has been designed for the Data Streaming Nanodegree of Udacity.
 
-It also mounts your repository folder to the Spark Master and Spark Worker containers as a volume  `/home/workspace`, making your code changes instantly available within to the containers running Spark.
-Let's get these containers started!
+## Setup
 
+### Update PYTHONPATH 
+Add the current project folder path to PYTHONPATH.
+In ~/.bashrc, append:
 ```
-cd [repositoryfolder]
+PYTHONPATH=your/path/to/repo:$PYTHONPATH 
+export PYTHONPATH
+```
+e.g.
+```
+PYTHONPATH=~/PycharmProjects/spark-streaming-template:$PYTHONPATH 
+export PYTHONPATH
+```
+
+### Install the environment
+```
+conda env create -f environment.yml
+conda activate spark_streaming_etl_template
+```
+
+### Run containerised Spark and Kafka
+```
 docker-compose up
 ```
-
-You should see 9 containers when you run this command:
+### Test
+A synchronous version of the script is available in `/tests`.
+To execute it, run:
 ```
-docker ps
+python spark_streaming_etl_template/tests/test_stream_processing.py
 ```
