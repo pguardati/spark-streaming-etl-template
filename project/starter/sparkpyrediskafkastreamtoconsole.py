@@ -128,7 +128,8 @@ emailAndBirthYearStreamingDF = emailAndBirthDayStreamingDF.select(
         getItem(0).alias("birthYear")
 )
 
-# TO-DO: sink the emailAndBirthYearStreamingDF dataframe to the console in append mode
+# TO-DO: sink the emailAndBirthYearStreamingDF
+# dataframe to the console in append mode
 query = emailAndBirthDayStreamingDF.writeStream.outputMode("append") \
     .queryName("tmp").format("console") \
     .start()
